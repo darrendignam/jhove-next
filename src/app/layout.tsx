@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Jhove Next App",
-  description: "Powered byt he OPF",
+  description: "Powered by the OPF",
 };
 
 export default function RootLayout({
