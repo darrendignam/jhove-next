@@ -1,6 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+declare global {
+  interface Window {
+    env?: {
+      API_BASE_URL?: string;
+    };
+  }
+}
 import Image from "next/image";
 import Rusha from "rusha"; // Import Rusha library
 
@@ -10,6 +18,14 @@ export default function Home() {
   const [fileInfo, setFileInfo] = useState<{ name: string; size: number; type: string; checksum?: string; processedResult?: AdditionalData; rawApiOutput?: ApiResult; module?: string } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedModule, setSelectedModule] = useState("AIFF-hul");
+  const [apiBaseUrl, setApiBaseUrl] = useState("https://jhove-rs.openpreservation.org/"); // Default value
+
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.env?.API_BASE_URL) {
+      setApiBaseUrl(window.env.API_BASE_URL);
+    }
+  }, []);
 
   const calculateChecksum = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -42,18 +58,15 @@ export default function Home() {
   };
 
   const sendToApi = async (file: File, module: string) => {
+    //const apiBaseUrl = window.env?.API_BASE_URL || "https://jhove-rs.openpreservation.org/"; // Fallback to default
     const formData = new FormData();
     formData.append("file", file);
     formData.append("module", module);
 
     try {
-      // const response = await fetch("https://jhove-rs.openpreservation.org/api/analyse", {
-      const response = await fetch("https://jhove-rs.openpreservation.org/api/jhove/validate", {
+      const response = await fetch(`${apiBaseUrl}/api/jhove/validate`, {
         method: "POST",
         body: formData,
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
       });
 
       if (!response.ok) {

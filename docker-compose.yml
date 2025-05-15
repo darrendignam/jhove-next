@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      API_BASE_URL: "http://jhove-rest:8080" # URL for the JHOVE REST API
+    ports:
+      - "3000:80"
+    depends_on:
+      - api-service
+
+  jhove-rest:
+    image: openpreserve/jhove-rest:latest
+    restart: unless-stopped
+    expose:
+      - 8080
+    environment:
+      JAVA_HOME: /opt/java/openjdk
+      JHOVE_REST_VERSION: 0.0.1-SNAPSHOT
+      PATH: /opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    command: ["dumb-init", "--", "java", "-Djava.awt.headless=true", "-jar", "/opt/jhove-rest/jhove-rest.jar", "server", "/var/opt/jhove-rest/config/jhove-rest.yml"]
