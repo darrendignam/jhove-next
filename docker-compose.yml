@@ -4,18 +4,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      API_BASE_URL: "http://jhove-rest:8080" # URL for the JHOVE REST API
+    volumes:
+      - ./public/env-config.js:/usr/share/nginx/html/env-config.js # env-config.js # Define the API URL
     ports:
       - "3303:80"
     depends_on:
-      - jhove-rest
+      - jhove-api
 
-  jhove-rest:
+  jhove-api:
+    container_name: jhove-api
     image: openpreserve/jhove-rest:latest
     restart: unless-stopped
-    expose:
-      - 8080
+    ports:
+      - "3304:8080"
     environment:
       JAVA_HOME: /opt/java/openjdk
       JHOVE_REST_VERSION: 0.0.1-SNAPSHOT
