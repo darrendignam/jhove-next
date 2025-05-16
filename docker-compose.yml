@@ -7,9 +7,9 @@ services:
     environment:
       API_BASE_URL: "http://jhove-rest:8080" # URL for the JHOVE REST API
     ports:
-      - "3000:80"
+      - "3303:80"
     depends_on:
-      - api-service
+      - jhove-rest
 
   jhove-rest:
     image: openpreserve/jhove-rest:latest

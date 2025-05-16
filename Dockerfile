@@ -1,5 +1,5 @@
 # Build stage
-FROM node:24.11-slim AS builder
+FROM node:24-slim AS builder
 WORKDIR /app
 COPY . .
 RUN npm install

@@ -18,7 +18,7 @@ export default function Home() {
   const [fileInfo, setFileInfo] = useState<{ name: string; size: number; type: string; checksum?: string; processedResult?: AdditionalData; rawApiOutput?: ApiResult; module?: string } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedModule, setSelectedModule] = useState("AIFF-hul");
-  const [apiBaseUrl, setApiBaseUrl] = useState("https://jhove-rs.openpreservation.org/"); // Default value
+  const [apiBaseUrl, setApiBaseUrl] = useState("https://jhove-rs.openpreservation.org"); // Default value
 
 
   useEffect(() => {
