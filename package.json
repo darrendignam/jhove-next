@@ -15,6 +15,7 @@
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "next": "15.3.1",
+    "path": "^0.12.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rusha": "^0.8.14"
@@ -22,7 +23,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20.17.46",
+    "@types/node": "^20.17.47",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/rusha": "^0.8.3",
